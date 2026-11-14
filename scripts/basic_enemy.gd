@@ -1,11 +1,15 @@
 extends CharacterBody2D
 
-#region Variables
+#region Movement
 @export var speed: float = 100.0
 @export var start_direction: int = 1
 
 var direction: int = 1
 @onready var floor_detector: RayCast2D = $floor_detector
+#endregion
+
+#region Damage and Health
+@export var damage: int = 1
 #endregion
 
 func _ready() -> void:

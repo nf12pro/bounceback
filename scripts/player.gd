@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-#region Variables
+#region Movement 
 @export var max_speed: float = 300.0
 @export var acceleration: float = 1500.0
 @export var friction: float = 1200.0
@@ -9,6 +9,12 @@ extends CharacterBody2D
 var input_direction: float = 0.0
 #endregion
 
+#region Health
+@export var health: int = 5
+
+@onready var hitbox = $hitbox
+@onready var hurtbox = $hurtbox
+#endregion
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -27,3 +33,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event.is_action("move_left") or event.is_action("move_right"):
 		input_direction = Input.get_axis("move_left", "move_right")
+
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	var enemy_damage = area.get_parent().damage
+	take_damage(enemy_damage)
+
+func take_damage(enemy_damage):
+	health -= enemy_damage
+	print(health)
