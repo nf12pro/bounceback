@@ -51,10 +51,14 @@ jump={
 
 [layer_names]
 
-2d_physics/layer_1="Player"
-2d_physics/layer_2="Enemies"
+2d_physics/layer_1="Player Physics"
+2d_physics/layer_2="Enemy Physics"
 2d_physics/layer_3="Walls"
 2d_physics/layer_4="Floor"
+2d_physics/layer_5="Player Hitbox"
+2d_physics/layer_6="Player Hurtbox"
+2d_physics/layer_7="Enemy Hitbox"
+2d_physics/layer_8="Enemy Hurtbox"
 
 [physics]
 

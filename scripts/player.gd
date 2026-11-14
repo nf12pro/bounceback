@@ -4,7 +4,11 @@ extends CharacterBody2D
 @export var max_speed: float = 300.0
 @export var acceleration: float = 1500.0
 @export var friction: float = 1200.0
+
 @export var jump_force: float = -400.0
+@export var stomp_force: float = -150.0
+
+@export var damage: int = 1
 
 var input_direction: float = 0.0
 #endregion
@@ -16,6 +20,7 @@ var input_direction: float = 0.0
 @onready var hurtbox = $hurtbox
 #endregion
 
+#region Movement
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += Global.gravity * delta
@@ -33,7 +38,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event.is_action("move_left") or event.is_action("move_right"):
 		input_direction = Input.get_axis("move_left", "move_right")
+#endregion
 
+#region Taking Damage
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	var enemy_damage = area.get_parent().damage
 	take_damage(enemy_damage)
@@ -41,3 +48,13 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 func take_damage(enemy_damage):
 	health -= enemy_damage
 	print(health)
+	# Respawn Logic TBD
+#endregion
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	var enemy = area.get_parent()
+	var stomping = velocity.y > 0 and global_position.y < enemy.global_position.y
+	if stomping and enemy.has_method("take_damage"): 
+		velocity.y = stomp_force
+		enemy.take_damage(damage)
+	

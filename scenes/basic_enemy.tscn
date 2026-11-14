@@ -45,12 +45,15 @@ target_position = Vector2(0, 37)
 collision_mask = 8
 
 [node name="hitbox" type="Area2D" parent="." unique_id=198080231]
-collision_layer = 2
+collision_layer = 64
+collision_mask = 32
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="hitbox" unique_id=562379591]
 shape = SubResource("CircleShape2D_hv2ic")
 
 [node name="hurtbox" type="Area2D" parent="." unique_id=68755240]
+collision_layer = 128
+collision_mask = 16
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="hurtbox" unique_id=636536517]
 position = Vector2(0, -27)
