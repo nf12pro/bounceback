@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c4fl5hijknn8w" path="res://assets/prototype_assets/tileset/Tileset_2D Platformer.png" id="2_2j2p2"]
 [ext_resource type="PackedScene" uid="uid://dboj2mjqg2dn7" path="res://scenes/basic_enemy.tscn" id="3_v6rby"]
 [ext_resource type="PackedScene" uid="uid://2ip7dhmobdlq" path="res://scenes/checkpoint.tscn" id="4_dh6dg"]
+[ext_resource type="PackedScene" uid="uid://bhf5cp6gw1d3k" path="res://scenes/spike.tscn" id="5_ejtda"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v6rby"]
 texture = ExtResource("2_2j2p2")
@@ -336,11 +337,6 @@ sources/0 = SubResource("TileSetAtlasSource_v6rby")
 
 [node name="player" parent="." unique_id=615595234 instance=ExtResource("1_2j2p2")]
 position = Vector2(32, 224)
-max_speed = 300.0
-acceleration = 1500.0
-friction = 1200.0
-jump_force = -500.0
-health = 5
 
 [node name="camera_2d" type="Camera2D" parent="player" unique_id=28729734]
 offset = Vector2(0, -200)
@@ -374,3 +370,6 @@ position = Vector2(80, 144)
 
 [node name="checkpoint #2" parent="." unique_id=1123312224 instance=ExtResource("4_dh6dg")]
 position = Vector2(888, 144)
+
+[node name="spike" parent="." unique_id=1437938010 instance=ExtResource("5_ejtda")]
+position = Vector2(720, 480)

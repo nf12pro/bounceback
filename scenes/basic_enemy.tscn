@@ -53,7 +53,7 @@ shape = SubResource("CircleShape2D_hv2ic")
 
 [node name="hurtbox" type="Area2D" parent="." unique_id=68755240]
 collision_layer = 128
-collision_mask = 16
+collision_mask = 272
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="hurtbox" unique_id=636536517]
 position = Vector2(0, -27)

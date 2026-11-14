@@ -28,7 +28,7 @@ size = Vector2(56, 10)
 radius = 29.068884
 
 [node name="player" type="CharacterBody2D" unique_id=615595234]
-collision_mask = 14
+collision_mask = 270
 script = ExtResource("1_g2els")
 
 [node name="animated_sprite" type="AnimatedSprite2D" parent="." unique_id=2085433902]
@@ -47,7 +47,7 @@ shape = SubResource("RectangleShape2D_qhqgy")
 
 [node name="hurtbox" type="Area2D" parent="." unique_id=1054936113]
 collision_layer = 32
-collision_mask = 64
+collision_mask = 320
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="hurtbox" unique_id=814764680]
 shape = SubResource("CircleShape2D_hv2ic")
@@ -59,6 +59,8 @@ one_shot = true
 [node name="coyote_timer" type="Timer" parent="." unique_id=1070926410]
 wait_time = 0.15
 one_shot = true
+
+[node name="priority_attack_timer" type="Timer" parent="." unique_id=367408428]
 
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]

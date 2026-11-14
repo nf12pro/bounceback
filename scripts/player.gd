@@ -1,3 +1,4 @@
+
 extends CharacterBody2D
 
 #region Movement 
@@ -6,22 +7,20 @@ extends CharacterBody2D
 @export var friction: float = 1200.0
 
 @export var jump_force: float = -500.0
-@export var jump_cut_multiplier: float = 0.5
-@export var stomp_force: float = -650.0
-
-@export var damage: int = 1
+@export var jump_cut_multiplier: float = 0.55
+@export var stomp_force: float = -1050.0
 
 var input_direction: float = 0.0
 
 @onready var coyote_timer: Timer = $coyote_timer
 @onready var jump_buffer_timer: Timer = $jump_buffer_timer
+
+@export var max_upward_speed: float = -1200.0
+@export var max_fall_speed: float = 1000.0
 #endregion
 
-#region Health
-@export var health: int = 5
-
-@onready var hitbox = $hitbox
-@onready var hurtbox = $hurtbox
+#region Misc
+@export var damage = 1
 #endregion
 
 #region Movement
@@ -35,7 +34,9 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, input_direction * max_speed, acceleration * delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
-
+	
+	velocity.y = clamp(velocity.y, max_upward_speed, max_fall_speed)
+	
 	move_and_slide()
 
 	if was_on_floor and not is_on_floor() and velocity.y >= 0:
@@ -58,20 +59,19 @@ func _unhandled_input(event: InputEvent) -> void:
 #endregion
 
 #region Taking Damage
-func _on_hurtbox_area_entered(area: Area2D) -> void:
-	var enemy_damage = area.get_parent().damage
-	take_damage(enemy_damage)
-
-func take_damage(enemy_damage):
-	health -= enemy_damage
-	print(health)
+func _on_hurtbox_area_entered(_area: Area2D) -> void:
 	if Global.amount_of_checkpoints > 0:
 		global_position = Global.checkpoint_position
+		velocity.x = 0
+		velocity.y = 0
 #endregion
 
+#region Dealing Damage
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	var enemy = area.get_parent()
 	var stomping = velocity.y > 0 and global_position.y < enemy.global_position.y
-	if stomping and enemy.has_method("take_damage"): 
+
+	if stomping and enemy.has_method("take_damage"):
 		velocity.y = stomp_force
 		enemy.take_damage(damage)
+#endregion

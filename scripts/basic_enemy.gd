@@ -1,3 +1,4 @@
+
 extends CharacterBody2D
 
 #region Basic Variables
@@ -10,10 +11,6 @@ var health: int = 1
 
 var direction: int = 1
 @onready var floor_detector: RayCast2D = $floor_detector
-#endregion
-
-#region Damage and Health
-@export var damage: int = 1
 #endregion
 
 #region Movement
@@ -38,7 +35,7 @@ func flip_direction() -> void:
 #endregion
 
 #region Health
-func take_damage(enemy_damage):
+func take_damage(enemy_damage: int) -> void:
 	health -= enemy_damage
 	if health <= 0:
 		queue_free()
