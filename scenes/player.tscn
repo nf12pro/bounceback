@@ -60,7 +60,5 @@ one_shot = true
 wait_time = 0.15
 one_shot = true
 
-[node name="priority_attack_timer" type="Timer" parent="." unique_id=367408428]
-
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]

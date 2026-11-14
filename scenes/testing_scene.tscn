@@ -346,6 +346,7 @@ limit_left = -500
 limit_top = -150
 limit_smoothed = true
 position_smoothing_enabled = true
+position_smoothing_speed = 7.5
 
 [node name="canvas_layer" type="CanvasLayer" parent="player/camera_2d" unique_id=263736528]
 
@@ -373,3 +374,9 @@ position = Vector2(888, 144)
 
 [node name="spike" parent="." unique_id=1437938010 instance=ExtResource("5_ejtda")]
 position = Vector2(720, 480)
+
+[node name="spike2" parent="." unique_id=435043204 instance=ExtResource("5_ejtda")]
+position = Vector2(784, 480)
+
+[node name="spike3" parent="." unique_id=1987845241 instance=ExtResource("5_ejtda")]
+position = Vector2(840, 480)
