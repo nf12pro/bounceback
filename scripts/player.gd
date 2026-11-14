@@ -48,7 +48,8 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 func take_damage(enemy_damage):
 	health -= enemy_damage
 	print(health)
-	# Respawn Logic TBD
+	if Global.amount_of_checkpoints > 0:
+		global_position = Global.checkpoint_position
 #endregion
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
