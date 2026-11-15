@@ -14,4 +14,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	await body.fade_out()
 	
 	Global.current_level += 1
-	get_tree().change_scene_to_file("res://scenes/level_%d.tscn" % Global.current_level)
+	if Global.current_level <= 3:
+		get_tree().change_scene_to_file("res://scenes/level_%d.tscn" % Global.current_level)
+	elif Global.current_level >= 4: 
+		get_tree().change_scene_to_file("res://scenes/game_won.tscn")
