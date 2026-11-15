@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cgsrno77tvpnd"]
+
+[ext_resource type="Script" uid="uid://5j7hs0swvqkd" path="res://scripts/screen_fade.gd" id="1_sj0y3"]
+
+[node name="screen_fade" type="ColorRect" unique_id=605263629]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_sj0y3")
