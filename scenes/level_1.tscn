@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dboj2mjqg2dn7" path="res://scenes/basic_enemy.tscn" id="3_pa8r4"]
 [ext_resource type="PackedScene" uid="uid://2ip7dhmobdlq" path="res://scenes/checkpoint.tscn" id="4_15mv3"]
 [ext_resource type="PackedScene" uid="uid://bhf5cp6gw1d3k" path="res://scenes/spike.tscn" id="5_e3sih"]
+[ext_resource type="PackedScene" uid="uid://dujhd2flq11rl" path="res://scenes/level_clear_flag.tscn" id="6_fcfvj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v6rby"]
 texture = ExtResource("2_fcfvj")
@@ -357,9 +358,6 @@ position = Vector2(80, 144)
 [node name="checkpoint #2" parent="." unique_id=1123312224 instance=ExtResource("4_15mv3")]
 position = Vector2(1168, 144)
 
-[node name="checkpoint #3" parent="." unique_id=86741957 instance=ExtResource("4_15mv3")]
-position = Vector2(2304, 144)
-
 [node name="spike" parent="." unique_id=1437938010 instance=ExtResource("5_e3sih")]
 position = Vector2(720, 480)
 
@@ -407,3 +405,6 @@ position = Vector2(835, 480)
 
 [node name="spike5" parent="." unique_id=1181948712 instance=ExtResource("5_e3sih")]
 position = Vector2(896, 480)
+
+[node name="level_clear_flag" parent="." unique_id=150231432 instance=ExtResource("6_fcfvj")]
+position = Vector2(2448, 144)
