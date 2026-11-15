@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dujhd2flq11rl"]
+
+[ext_resource type="Script" uid="uid://bwp4cgmwadgx1" path="res://scripts/level_clear_flag.gd" id="1_swbiy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6esg4"]
+size = Vector2(40, 112)
+
+[node name="level_clear_flag" type="Node2D" unique_id=1933053069]
+script = ExtResource("1_swbiy")
+
+[node name="color_rect" type="ColorRect" parent="." unique_id=1462400845]
+offset_right = 40.0
+offset_bottom = 112.0
+color = Color(0.019082664, 0.2318958, 0.39286482, 1)
+
+[node name="area_2d" type="Area2D" parent="." unique_id=362617124]
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="area_2d" unique_id=1516394038]
+position = Vector2(20, 56)
+shape = SubResource("RectangleShape2D_6esg4")
+
+[connection signal="body_entered" from="area_2d" to="." method="_on_area_2d_body_entered"]

@@ -18,6 +18,11 @@ var input_direction: float = 0.0
 @onready var jump_buffer_timer: Timer = $jump_buffer_timer
 
 var stomped_this_frame: bool = false
+
+@export var fast_fall_initial_boost: float = 220.0
+@export var fast_fall_acceleration: float = 750.0
+@export var upward_brake_multiplier: float = 0.65
+@export var max_fast_fall_speed: float = 1250.0
 #endregion
 
 #region Screen Fade
@@ -37,19 +42,29 @@ func _ready() -> void:
 	screen_fade.visible = false
 	screen_fade.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
-#region Movement
 func _physics_process(delta: float) -> void:
 	var was_on_floor = is_on_floor()
+	var current_max_fall := max_fall_speed
 	
 	if not is_on_floor():
-		velocity.y += Global.gravity * delta
+		var current_gravity: float = Global.gravity
+		
+		if Input.is_action_pressed("move_down"):
+			current_max_fall = max_fast_fall_speed
+			
+			if velocity.y < 0.0:
+				current_gravity += fast_fall_acceleration * upward_brake_multiplier
+			else:
+				current_gravity += fast_fall_acceleration
+		
+		velocity.y += current_gravity * delta
 	
 	if input_direction != 0:
 		velocity.x = move_toward(velocity.x, input_direction * max_speed, acceleration * delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
 	
-	velocity.y = clamp(velocity.y, max_upward_speed, max_fall_speed)
+	velocity.y = clamp(velocity.y, max_upward_speed, current_max_fall)
 	
 	move_and_slide()
 	
@@ -71,8 +86,17 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action("move_left") or event.is_action("move_right"):
 		input_direction = Input.get_axis("move_left", "move_right")
 	
+	if event.is_action_pressed("move_down") and not is_on_floor():
+		if velocity.y < 0.0:
+			velocity.y += fast_fall_initial_boost * upward_brake_multiplier
+		else:
+			velocity.y += fast_fall_initial_boost
+	
 	if event.is_action_pressed("reset"):
 		reset_level()
+	
+	if event.is_action_pressed("reset_full_level"):
+		reset_full_level()
 #endregion
 
 #region Taking Damage
@@ -95,8 +119,20 @@ func reset_level() -> void:
 		
 	if Global.amount_of_checkpoints > 0:
 		await fade_out()
-		global_position = Global.checkpoint_position
+		global_position = Global.current_checkpoint_position
 		velocity = Vector2.ZERO
+		get_tree().call_group("enemies", "respawn")
+		await fade_in()
+
+func reset_full_level() -> void:
+	if transitioning:
+		return
+		
+	if Global.amount_of_checkpoints > 0:
+		await fade_out()
+		global_position = Global.first_checkpoint_position
+		velocity = Vector2.ZERO
+		get_tree().call_group("enemies", "respawn")
 		await fade_in()
 
 #region Screen Fade Functions
